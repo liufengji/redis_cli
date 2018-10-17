@@ -1,5 +1,6 @@
 package com.victor.rediscli;
 
+import java.io.IOException;
 import java.util.*;
 
 import org.junit.Test;
@@ -38,20 +39,27 @@ public class JunitRedis {
 
     }
 
+    //Redis集群的Jedis开发
     @Test
     public static void JedisSet() {
 
-        Set<HostAndPort> nodes = new HashSet<HostAndPort>();
+        try {
+            Set<HostAndPort> nodes = new HashSet<HostAndPort>();
 
-        nodes.add(new HostAndPort("192.168.67.143", 6391));
+            nodes.add(new HostAndPort("192.168.67.143", 6391));
 
-        @SuppressWarnings("resource")
-        JedisCluster jedisCluster = new JedisCluster(nodes);
+            @SuppressWarnings("resource")
+            JedisCluster jedisCluster = new JedisCluster(nodes);
 
-        jedisCluster.set("k1000", "v1000");
+            jedisCluster.set("k1000", "v1000");
 
-        System.out.println(jedisCluster.get("k1000"));
+            System.out.println(jedisCluster.get("k1000"));
 
+            jedisCluster.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test

@@ -20,8 +20,6 @@ public class JedisRedis {
         for (String string : keys) {
             System.out.println(string);
         }
-
         jedis.close();
-
     }
 }
